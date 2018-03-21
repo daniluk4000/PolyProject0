@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android2="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    >
+    <item
+        android2:id="@+id/home"
+        android2:title="Главная" />
+    <item
+        android2:id="@+id/about"
+        android2:title="О приложении" />
+    <item
+        android2:id="@+id/list"
+        android2:title="Жанры" />
+    <item
+        android2:id="@+id/quit"
+        android2:title="Выход" />
+</menu>
