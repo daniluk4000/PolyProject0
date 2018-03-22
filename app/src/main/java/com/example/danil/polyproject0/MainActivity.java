@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     public final String APP_PREFERENCES = "login_save";
     public final String APP_PREFERENCES_LOGIN = "0";
     SharedPreferences mLogin;
+
     public void proceedLogin(View view) {
         if(password.getText().toString().equals("admin")) {
             try {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Вход выполнен!", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(this, FilmsList.class);
                 startActivity(i);
+                finish();
             } catch(Exception e) {
                 Toast.makeText(getApplicationContext(), "Произошла неизвестная ошибка!", Toast.LENGTH_SHORT).show();
             }
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         if(mLogin.contains(APP_PREFERENCES_LOGIN)) {
             Intent i = new Intent(this, FilmsList.class);
             startActivity(i);
+            finish();
         } else {
             setContentView(R.layout.activity_main);
         }

@@ -21,11 +21,10 @@
                 <action android:name="android.intent.action.Films" />
             </intent-filter>
         </activity>
-        <activity android:name=".template_header">
-            <intent-filter>
-                <action android:name="android.intent.action.Header" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".GenresActivity" />
+        <activity android:name=".PickedGenreActivity" />
+        <activity android:name=".PickedFilmActivity" />
+        <activity android:name=".AboutActivity" />
     </application>
 
 </manifest>

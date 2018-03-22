@@ -15,28 +15,40 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.List;
 
-
-public class FilmsList extends AppCompatActivity {
-    SharedPreferences mLogin;
+public class PickedGenreActivity extends AppCompatActivity {
     private ListView listView;
     private List<FilmItem> items;
+    SharedPreferences mLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Все фильмы");
-        setContentView(R.layout.activity_films);
+        setContentView(R.layout.activity_picked_genre);
+        listView = findViewById(R.id.picked_genre_lustView);
 
-        listView = findViewById(R.id.film_listView);
 
-        items = getFilmItems();
+        switch (getIntent().getIntExtra(GenresActivity.KEY_LAYOUT, -1)) {
+            case 0:
+                items = getDramaFilm();
+                setTitle("Драма");
+                break;
+            case 1:
+                items = getCartoonsFilms();
+                setTitle("Мальтфильмы");
+                break;
+            case 2:
+                items = getFantasticFilms();
+                setTitle("Фантастика");
+                break;
+        }
+
         FilmAdapter adapter = new FilmAdapter(items, this);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 FilmItem film = items.get(i);
-                Intent intent = new Intent(FilmsList.this, PickedFilmActivity.class);
+                Intent intent = new Intent(PickedGenreActivity.this, PickedFilmActivity.class);
                 intent.putExtra(Keys.FILM_NAME.name(), film.getFilmName());
                 intent.putExtra(Keys.FILM_COUNTRY.name(), film.getFilmCountry());
                 intent.putExtra(Keys.FILM_RATING.name(), film.getFilmRate());
@@ -54,9 +66,13 @@ public class FilmsList extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
         int id = item.getItemId();
+        Intent intent;
         switch (id) {
+            case R.id.home:
+                intent = new Intent(this, FilmsList.class);
+                startActivity(intent);
+                return true;
             case R.id.about:
                 intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
@@ -64,7 +80,6 @@ public class FilmsList extends AppCompatActivity {
             case R.id.list:
                 intent = new Intent(this, GenresActivity.class);
                 startActivity(intent);
-                return true;
             case R.id.quit:
                 mLogin = getSharedPreferences("login_save", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = mLogin.edit();
@@ -80,13 +95,11 @@ public class FilmsList extends AppCompatActivity {
         }
     }
 
-    private List<FilmItem> getFilmItems() {
+
+    private List<FilmItem> getDramaFilm() {
         return Arrays.asList(
                 new FilmItem(
                         "Прибытие", "США", "Рейтинг: 94%", R.drawable.arrival
-                ),
-                new FilmItem(
-                        "Город героев", "США", "Рейтинг: 89", R.drawable.big
                 ),
                 new FilmItem(
                         "В центре внимания", "США", "Рейтинг: 97", R.drawable.center
@@ -95,22 +108,42 @@ public class FilmsList extends AppCompatActivity {
                         "Ла-Ла Ленд", "США, Гонконг", "Рейтинг: 92", R.drawable.lala
                 ),
                 new FilmItem(
+                        "По соображениям совести",
+                        "Австралия ,США", "Рейтинг: 86", R.drawable.ridge
+                ),
+                new FilmItem(
+                        "Планета обезьян: Война",
+                        "США, Канада, Новая Зеландия", "Рейтинг: 93", R.drawable.planet
+                )
+        );
+    }
+
+    private List<FilmItem> getCartoonsFilms() {
+        return Arrays.asList(
+                new FilmItem(
+                        "Город героев", "США", "Рейтинг: 89", R.drawable.big
+                ),
+                new FilmItem(
                         "Моана", "США", "Рейтинг: 96", R.drawable.moana
+                ),
+                new FilmItem(
+                        "Тайна Коко", "США", "Рейтинг: 96", R.drawable.koko
+                )
+        );
+    }
+
+    private List<FilmItem> getFantasticFilms() {
+        return Arrays.asList(
+                new FilmItem(
+                        "Изгой-один: Звёздные войны. Истории",
+                        "США", "Рейтинг: 85", R.drawable.rogue
                 ),
                 new FilmItem(
                         "Планета обезьян: Война",
                         "США, Канада, Новая Зеландия", "Рейтинг: 93", R.drawable.planet
                 ),
                 new FilmItem(
-                        "Тайна Коко", "США", "Рейтинг: 96", R.drawable.koko
-                ),
-                new FilmItem(
-                        "По соображениям совести",
-                        "Австралия ,США", "Рейтинг: 86", R.drawable.ridge
-                ),
-                new FilmItem(
-                        "Изгой-один: Звёздные войны. Истории",
-                        "США", "Рейтинг: 85", R.drawable.rogue
+                        "Прибытие", "США", "Рейтинг: 94%", R.drawable.arrival
                 )
         );
     }
