@@ -57,6 +57,7 @@ public class GenresActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.list:
                 intent = new Intent(this, GenresActivity.class);
                 startActivity(intent);
+                return true;
             case R.id.quit:
                 mLogin = getSharedPreferences("login_save", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = mLogin.edit();
